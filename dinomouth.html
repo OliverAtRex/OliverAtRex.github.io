@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://jsbin.com
+
+Copyright (c) 2016 by OliverAtRex (http://jsbin.com/legoba/5/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>my plan</title>
+<style id="jsbin-css">
+p{
+  font-size: x-large;
+}
+h1{
+ color:green;
+  
+}
+img#bo{
+  width:100%;
+}
+img#dino{
+  width:100%;    
+}
+#dinoholder {
+  position: relative;
+  overflow:hidden;
+}
+img#jaw {
+  width: 100%;
+    -webkit-clip-path: polygon(44% 10%, 90% 27%, 79% 35%, 40% 20%);
+  position: absolute;
+  top: 0;
+  animation-name: wiggle;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  transform-origin: 46% 12%;
+}
+
+@keyframes wiggle {
+  from {
+    transform: rotate(-5deg);
+  }
+  to {
+    transform: rotate(3deg);
+  }
+}
+</style>
+</head>
+<body>
+  <h1>My plan to build websites</h1>
+ <p> Today i will build this website.I might make 2 websites .It might take many days to make 3 websites.
+   
+   
+  </p>
+  <img id=bo src="http://smalltownmusiclessons.files.wordpress.com/2013/11/website-updated.jpg">
+  <div id=dinoholder>
+    <img id=dino       src="https://lh3.googleusercontent.com/SRl8bLEr5JPCPxvFxxRGm6E3fO5TsbrRPDX7XzFVwAG5RrEAhG836__M9EJXhQc1UKRb16OzzCfJ-g=w1110-h1478-no">
+    <img id=jaw       src="https://lh3.googleusercontent.com/SRl8bLEr5JPCPxvFxxRGm6E3fO5TsbrRPDX7XzFVwAG5RrEAhG836__M9EJXhQc1UKRb16OzzCfJ-g=w1110-h1478-no">
+  </div>
+  <p> Look around .Anything might happen.
+<script id="jsbin-javascript">
+var myh1=document.querySelector("h1");
+window.addEventListener("mousemove",function(a){
+  var red= a.clientX % 256;
+  var blue= a.clientY % 256;
+  
+  myh1.style.color="rgb("+ red + ",200," + blue + ")";
+});
+</script>
+</body>
+</html>
