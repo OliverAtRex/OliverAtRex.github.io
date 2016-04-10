@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://jsbin.com
+
+Copyright (c) 2016 by OliverAtRex (http://jsbin.com/qibeku/6/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+<head>
+  <meta name="description" content="XOR Encoder">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>XOR Encoder / decoder</title>
+<style id="jsbin-css">
+
+body[showcodes=false] .code {
+  display: none;
+}
+.box {
+  border:2px solid blue;
+  background: rgba(16,0,255,0.71);
+  padding: 10px;
+  margin: 2px;
+  color: white;
+  font-weight: bold;
+}
+.code {
+  color: yellow;
+  font-weight: normal;
+}
+html{
+  background-image: url("https://ih0.redbubble.net/image.120524197.4623/flat,800x800,075,f.u3.jpg");
+  background-repeat:no-repeat;
+  background-size:contain;
+  height: 100%;
+}
+</style>
+</head>
+<body showcodes=false>
+  <div class=box>
+  Shows codes: <input type=checkbox
+    id=codes>
+    <select id=fmt>
+      <option>Binary</option>
+      <option>Decimal</option>
+    </select></div>
+  <div class=box>
+    <div>Type a message here:</div>
+    <input id=msg>
+    <div id=mbin class=code></div>
+  </div>
+  <div class=box>
+    <div>Type a key here:</div>
+    <input id=key>
+    <div id=kbin class=code></div>
+  </div>
+  <div class=box>
+    <div>Your answer:</div>
+    <div id=results></div>
+    <div id=rbin class=code></div>
+  </div>
+<script id="jsbin-javascript">
+function xor(in1, in2) {
+  if (in1==in2)
+    return 0;
+  return 1;
+}
+
+function numberToBinary(num) {
+  var binary = "";
+  while (num > 0) {
+    var bit =0;
+    if (num % 2 == 1)
+      bit = 1;
+    binary = bit + binary;
+    num = Math.trunc(num / 2);
+  }
+  return binary;
+}
+
+function binaryToNumber(bin){
+  var num = 0;
+  var bitValue = 1;
+  for (var i = bin.length-1; i >= 0; i--) {
+    if(bin[i] == "1")
+      num += bitValue;
+   bitValue *= 2;        
+  }
+  return num;
+}
+
+function xorBin(b1, b2) {
+    var len = Math.max(b1.length, b2.length);
+    var result = "";
+    for(var i = 1; i <=len; i++){
+      var bit1 = b1.charAt(b1.length-i) || "0";
+      var bit2 = b2.charAt(b2.length-i) || "0";
+      result = xor(bit1, bit2) + result;
+    }
+  return result;
+}
+function stringToBinary(str) {
+  var bin="";
+  for(var i = 0; i < str.length; i++) {
+    var code = str.charCodeAt(i);
+    bin += numberToBinary(code) + " ";
+  }
+  return bin;
+  
+}
+
+var $ = document.getElementById.bind(document);
+
+var msg=$( 'msg');
+msg.addEventListener('input', function(){
+  $('mbin').textContent = stringToBinary(msg.value);
+});
+
+function update() {
+  var bf = $('fmt').value ==
+"Binary";      
+  var key = $('key');
+  $('mbin').textContent="";  
+  $('kbin').textContent="";
+  $('rbin').textContent="";
+  $('results').textContent="";
+  for(var i = 0; i < msg.value.length; i++) {
+    var mcode = msg.value.charCodeAt(i);
+    var mb = numberToBinary(mcode);
+    $('mbin').textContent += (bf ? mb : mcode) + " ";
+    
+    var kcode = key.value.charCodeAt(i %   key.value.length); 
+    var kb = numberToBinary(kcode);
+    kb=kb.substr(kb.length-5,5);    
+    $('kbin').textContent += (bf ? kb : kcode) + " ";
+    
+    var rb = xorBin(mb, kb);
+    if (rb == "1111111")
+      rb = "1011111";
+    var rcode = binaryToNumber(rb);
+    $('rbin').textContent += (bf ? rb : rcode) + " ";
+
+    $('results').textContent += String.fromCharCode(rcode);
+  }
+}
+
+$('codes').addEventListener('click', function(e) {
+  document.body.setAttribute("showcodes", $('codes').checked);
+});
+
+msg.addEventListener('input', update);
+key.addEventListener('input', update);
+$('fmt').addEventListener('change', update);
+
+
+
+
+
+</script>
+</body>
+</html>
