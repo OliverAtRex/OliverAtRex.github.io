@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://jsbin.com
+
+Copyright (c) 2016 by rbyers (http://jsbin.com/hivaze/1/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+<head>
+<meta name="description" content="Moving Eyes">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+<style id="jsbin-css">
+html {
+  background-color: lightblue;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+#eyes {
+  position: absolute;
+  top: 30%;
+  left: 30%;
+}
+
+.eye {
+  position: relative;
+  width:50px;
+  height:70px;
+  background-color: white;
+  display:inline-block;
+  border-radius: 25px / 35px;
+  margin: 3px;
+}
+
+.pupil {
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  background-color: black;
+  position: absolute;
+  top: 20px;
+  left: 10px;
+}
+</style>
+</head>
+<body>
+  <div id=eyes>
+    <div id=lefteye class=eye>
+      <div class=pupil></div>
+    </div>
+    <div id=righteye class=eye>
+      <div class=pupil></div>
+    </div>
+  </div>
+<script id="jsbin-javascript">
+function pointPupilAt(pupil, targetX, targetY) {
+  pupil.style.transform = "";
+  var start = pupil.getBoundingClientRect();
+  var offsetX = targetX - (start.left + start.width/2);
+  var offsetY = targetY - (start.top + start.height/2);
+  offsetX = Math.max(Math.min(offsetX, 12), -12);
+  offsetY = Math.max(Math.min(offsetY, 15), -15);
+  pupil.style.transform = "translate(" + offsetX + "px, " + offsetY + "px)";
+}
+
+window.addEventListener('mousemove', function(e) {
+  var pupils = document.querySelectorAll('.pupil');
+  for(var i = 0; i < pupils.length; i++) {
+    pointPupilAt(pupils[i], e.clientX, e.clientY);
+  }
+});
+</script>
+</body>
+</html>
