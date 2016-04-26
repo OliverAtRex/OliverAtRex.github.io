@@ -78,12 +78,10 @@ function pointpupilsAt(targetX, targetY) {
 
 window.addEventListener('mousemove', function(e) {
   pointpupilsAt(e.clientX, e.clientY);
-}
+});
 window.addEventListener('touchmove', function(e) {
   pointpupilsAt(e.touches[0].clientX, e.touches[0].clientY);
   e.preventDefault();
-}
-
 });
 </script>
 </body>
