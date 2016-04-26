@@ -70,12 +70,20 @@ function pointPupilAt(pupil, targetX, targetY) {
   offsetY = Math.max(Math.min(offsetY, 15), -15);
   pupil.style.transform = "translate(" + offsetX + "px, " + offsetY + "px)";
 }
+function pointpupilsAt(targetX, targetY) {
+  var pupils = document.querySelectorAll('.pupil');
+  for(var i = 0; i < pupils.length; i++) 
+    pointPupilAt(pupils[i], targetX ,targetY);
+}
 
 window.addEventListener('mousemove', function(e) {
-  var pupils = document.querySelectorAll('.pupil');
-  for(var i = 0; i < pupils.length; i++) {
-    pointPupilAt(pupils[i], e.clientX, e.clientY);
-  }
+  pointpupilsAt(e.clientX, e.clientY);
+}
+window.addEventListener('touchmove', function(e) {
+  pointpupilsAt(e.touches[0].clientX, e.touches[0].clientY);
+  e.preventDefault();
+}
+
 });
 </script>
 </body>
